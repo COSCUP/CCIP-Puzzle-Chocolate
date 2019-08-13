@@ -2,9 +2,9 @@ import axios from 'axios'
 import { configURL } from '../../config/project.json'
 
 const defaultState = {
-  confName: 'OPass',
+  confName: 'COSCUP 2019',
   title: {
-    'zh-TW': '大地集章',
+    'zh-TW': '開源巔峰挑戰賽',
     en: 'Rewards'
   },
   bingoPatterns: 'cscscscscscscscscscscscsc',
@@ -33,7 +33,7 @@ const defaultState = {
         en: 'SITCON'
       },
       description: {
-        'zh-TW': '來跳坑 SITCON 就可以得到印章喔',
+        'zh-TW': '來跳坑 SITCON 就可以得到印章喔。',
         en: 'Visit SITCON booth and get stamp.'
       },
       imageUrl: 'https://sitcon.org/2019/static/img/sponsor/sitcon.png',
