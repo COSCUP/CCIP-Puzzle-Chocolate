@@ -12,6 +12,7 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    { path: '/', component: Reward },
     { path: '/stamp', component: Stamp },
     { path: '/reward', component: Reward },
     { path: '/bingo', component: Bingo },
