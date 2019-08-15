@@ -67,7 +67,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('fetchGameConfig')
+    this.$store.dispatch('fetchBooths')
   },
   mounted () {
     this.boothToken = this.$route.query.token || null
