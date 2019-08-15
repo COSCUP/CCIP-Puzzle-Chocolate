@@ -1,4 +1,4 @@
 {
   "API_URL": "https://ccip.opass.app/",
-  "configURL": "/config.json"
+  "configURL": "https://play.coscup.org/config.json"
 }
