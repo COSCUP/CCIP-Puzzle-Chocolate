@@ -67,10 +67,10 @@ export default {
           .reduce((gotPoint, booth) => gotPoint + booth.point, 0) +
         this.stamps.reduce((gotPoints, stamp) => {
           const deliverer = this.booths.find(
-            booth => booth.slug === stamp.deliverer && booth.isBonus === false
+            booth => booth.slug === stamp.deliverer && !booth.isBonus
           )
           return deliverer && deliverer.point
-            ? gotPoints + deliverer.point
+            ? gotPoints + Number(deliverer.point)
             : gotPoints
         }, 0)
       )
