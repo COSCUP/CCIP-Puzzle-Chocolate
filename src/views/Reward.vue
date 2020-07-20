@@ -3,7 +3,7 @@
     <h1 role="GameName">{{ $t('reward') }}</h1>
     <template v-if="showScanner">
       <qrcode-reader
-        :enable="showScanner"
+        v-if="showScanner"
         :noResult="true"
         title
         :subTitle="$t('scan_qrcode')"
@@ -14,10 +14,18 @@
     <template v-if="playerPubToken !== null">
       <h2 role="got-points">{{ $t('has_got_points', {points: gotPoints}) }}</h2>
       <SquareGrid :booths="boothList" :userStamps="stamps" :showAnchor="true" />
+      <div role="game-description" v-if="description($i18n.locale).length > 0">
+        <template v-for="(line, index) in description($i18n.locale).split('\n')">
+          <p :key="index">{{ line }}</p>
+        </template>
+      </div>
       <BoothList :booths="booths" />
     </template>
-    <Snackbar :isActive="showSnackbar">
-      {{ puzzleErrorMessage }}
+    <Snackbar :isActive="showErrorMessage">
+      {{ errorMessage }}
+      <template v-if="stamps.length === 0">
+        <button role="retry" @click="retryScanner">Retry</button>
+      </template>
     </Snackbar>
   </div>
 </template>
@@ -26,13 +34,8 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Reward',
-  data () {
-    return {
-      showSnackbar: false
-    }
-  },
   computed: {
-    ...mapGetters(['booths', 'stamps', 'playerPubToken', 'puzzleErrorMessage']),
+    ...mapGetters(['description', 'booths', 'stamps', 'playerPubToken', 'errorMessage', 'showErrorMessage']),
     showScanner () {
       return this.playerPubToken === null
     },
@@ -76,11 +79,6 @@ export default {
       )
     }
   },
-  watch: {
-    puzzleErrorMessage () {
-      this.toggleSnackbar()
-    }
-  },
   created () {
     this.$store.dispatch('fetchGameConfig')
     const token = this.$route.query.token || null
@@ -95,13 +93,14 @@ export default {
       this.$store.dispatch('fetchPuzzleBook')
     },
     toggleSnackbar () {
-      this.showSnackbar = true
-      setTimeout(function () {
-        this.showSnackbar = false
-      }.bind(this), 5000)
+      this.$store.dispatch('showErrorMessage')
     },
     onScanFail (errorMessage) {
-      this.$store.dispatch('UPDATE_ERROR_MESSAGE', this.$t('qrcode_scan_fail'))
+      this.$store.dispatch('setErrorMessage', this.$t('qrcode_scan_fail'))
+      this.toggleSnackbar()
+    },
+    retryScanner () {
+      this.$store.dispatch('setPubToken', null)
       this.toggleSnackbar()
     }
   }
@@ -109,7 +108,20 @@ export default {
 </script>
 
 <style lang="stylus">
-[role='got-points'] {
-  text-align: center;
-}
+[role='game-description']
+  background #fff
+  width calc(100vw - 2rem)
+  margin -1rem auto 1rem auto
+  padding 1em
+[role='got-points']
+  text-align: center
+[role="retry"]
+  text-align right
+  margin-right 0
+  margin-left auto
+  border none
+  background transparent
+  text-decoration underline
+  color rgb(91.7%, 91.7%, 2.1%)
+  font-weight 500
 </style>

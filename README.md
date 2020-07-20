@@ -17,7 +17,11 @@ There will be two way to prepare configration:
     "zh-TW": "大地集章",
     "en": "Rewards"
   },
-  "bingoPatterns": "",
+  "description": {
+    "zh-TW": "大地遊戲說明文字",
+    "en": "Booth reward activity description"
+  },
+  "bingoPattern": "",
   "booths": [
     {
       "isBonus": true,
@@ -40,17 +44,15 @@ There will be two way to prepare configration:
 
 2. Using google separeatesheet template and converting script writing on node.js
 
-```
-TBC
-```
+Using [CCIP-App/CCIP-Puzzle-Config-Generator-Chocolate](https://github.com/CCIP-App/CCIP-Puzzle-Config-Generator-Chocolate)
 
-More detail see [Configuration file](#Configration-file)
+More detail about configuration see [Configuration file](#Configration-file)
 
 ### Set project configuration and build
 
 Modify `config/project.json`, given values for `API_URL` with an base url for OPass server side and for `configURL` with an URL point to configuration file which generated on previous step.
 
-Then run `yarn build` to build project and deploy everwhere you want to deploy
+Then run `npm run build` to build project and deploy everwhere you want to deploy
 
 ## Configration file
 
@@ -62,22 +64,22 @@ TBC
 
 ### Install dependency
 ```
-yarn install
+npm run install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+npm run build
 ```
 
 ### Lints and fixes files
 ```
-yarn lint
+npm run lint
 ```
 
 ### Customize configuration

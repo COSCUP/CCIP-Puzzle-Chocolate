@@ -7,7 +7,11 @@ const defaultState = {
     'zh-TW': '',
     en: ''
   },
-  bingoPatterns: '',
+  description: {
+    'zh-TW': '',
+    en: ''
+  },
+  bingoPattern: '',
   booths: []
 }
 
@@ -17,8 +21,9 @@ const types = {
 
 const getters = {
   confName: state => state.confName,
-  title: state => lang => state.title[lang],
-  bingoPatterns: state => state.bingoPatterns,
+  title: state => lang => state.title[lang] || state.title.en,
+  description: state => lang => state.description[lang] || state.description.en,
+  bingoPattern: state => state.bingoPattern,
   booths: state => state.booths,
   booth: state => slug => state.booths.find(booth => booth.slug === slug)
 }
@@ -36,8 +41,9 @@ const mutations = {
   UPDATE_CONFIG: (state, data) => {
     state.booths = data.booths
     state.confName = data.confName
-    state.title = data.title
-    state.bingoPatterns = data.bingoPatterns
+    state.title = data.title || { en: 'title undefined' }
+    state.description = data.description || { en: 'description undefined' }
+    state.bingoPattern = data.bingoPattern
   }
 }
 
